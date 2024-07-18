@@ -1,0 +1,21 @@
+* {
+    padding: 0;    
+    margin: 0;
+}
+
+body {
+    background: rgba(159, 213, 238, .7);  
+    /*background: rgba(221, 224, 36, 0.5);  */
+}
+
+canvas {
+    /* border: 2px solid #000; */
+    border: none;
+    background: #ffffff;
+    outline: 2px solid #000000;
+    /* outline-offset: 5px; */    
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
