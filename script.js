@@ -132,9 +132,15 @@ function canvasClicked(mouseEvt)
     // location.reload(); // Reload the page. The canvas is repainted. NOT good all global variables are reset, game progress lost
 }
 
+/**
+ * Encapsulates all the logic of the popular game Tic Tac Toe of 3 in-line.
+ */
 class TicTacToeGame
 {   
 
+    /**
+     * Creates a new `TickTacToeGame` object.
+     */
     constructor()
     {
         this.board = [["", "", ""], 
@@ -148,6 +154,14 @@ class TicTacToeGame
         this.winCells = new Array(); // Stores objects with the coordenates of the 3 in-line cells
     }
 
+    /**
+     * Recibes the coordenates of a cell in a 3x3 matrix for the next play. The values of row and col go from 0 to 2.
+     * If the new cell is not valid or is already played. The play is not made
+     * @param {number} row First coordenate of a cell
+     * @param {number} col Second coordenate of a cell
+     * @returns {boolean} @true If the cell is valid for the new play. The play is made
+     * @false If the cell is no valid for the new play. The play is not valid.   
+     */
     play(row, col) 
     {
         if(row < 0 || row >= 3 || col < 0 || col >= 3) // Validating input
@@ -186,10 +200,15 @@ class TicTacToeGame
                 this.winCells = [];
             }
         }
-        console.log(game);
+        
         return true; // The play was made
     }
 
+    /**
+     * Determines if there are 3 in-line X or O in the matrix.
+     * @returns @true 3 in-line were found in the matrix
+     * @false 3 in-line were not found.
+     */
     victoryAchived()
     {
         if( this.playCounter < 5) return false; // Victory can only happen after 5th play
@@ -215,7 +234,7 @@ class TicTacToeGame
             if(this.winCells.length === 3) return true; // Found the 3 in-line cells            
         }
         // Searching for in-line cells with a radius = 1
-        // Directions used 0 to 3 and the oposites are generated *(-1)
+        // Directions used 0 to 3 and the oposites are generated *(-1)        
         for(let i = 0; i <= 3; i++)
         {
             this.winCells = [last];
@@ -227,7 +246,7 @@ class TicTacToeGame
             // searching for the last in-line cell. Has to be in oposite direction
             r = last.row + dr[i]*(-1);
             c = last.col + dc[i]*(-1);
-            if( !this.isValidCell(r,c) ) break; // Out of the matrix. Cell not exist
+            if( !this.isValidCell(r,c) ) continue; // Out of the matrix. Cell not exist
             if(this.board[last.row][last.col] === this.board[r][c])
                 this.winCells.push( {row: r, col: c} ); // Found the last in-line cell
             if(this.winCells.length === 3) return true;
@@ -237,8 +256,8 @@ class TicTacToeGame
 
     /**
      * Given the coordenates of a cell, determines if is valid for a 3x3 matrix
-     * @param {*} row Row of the cell
-     * @param {*} col Column of the cell
+     * @param {number} row Row of the cell
+     * @param {number} col Column of the cell
      * @returns true if valid, false if not
      */
     isValidCell(row, col)
